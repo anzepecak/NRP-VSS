@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Journal</title>
+    <!-- Use a modern sans-serif font like Inter for premium feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Material Symbols for beautiful minimal icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,1,0" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="logo">
+            <span class="material-symbols-outlined">nightlight</span>
+            <span>ZEN JOURNAL</span>
+        </div>
+        <div class="nav-right" id="nav-actions">
+            <!-- Dynamically populated or static -->
+            <button class="icon-btn action-cancel" onclick="app.navigate('home')">CANCEL</button>
+            <button class="icon-btn action-settings">
+                <span class="material-symbols-outlined">settings</span>
+            </button>
+            <div class="avatar-container" style="position: relative;">
+                <div class="avatar" id="nav-avatar" onclick="app.toggleDropdown()">
+                    <img src="https://ui-avatars.com/api/?name=Zen+User&background=ffd3b6&color=333" id="avatar-img" alt="User Profile">
+                </div>
+                <div class="dropdown-menu fade-in" id="avatar-dropdown" style="display: none;">
+                    <div class="dropdown-header" id="dropdown-name">Zen User</div>
+                    <button class="dropdown-item" onclick="app.logout()">
+                        <span class="material-symbols-outlined">logout</span>
+                        Log Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app">
+        <!-- view-auth: Login and Register -->
+        <section id="view-auth" class="view">
+            <div class="auth-container fade-in">
+                <div class="auth-box" id="login-box">
+                    <h2>Welcome Back</h2>
+                    <p class="auth-subtitle">Enter your sanctuary.</p>
+                    <form onsubmit="event.preventDefault(); app.login();">
+                        <div class="input-group">
+                            <span class="material-symbols-outlined">mail</span>
+                            <input type="email" id="login-email" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <span class="material-symbols-outlined">lock</span>
+                            <input type="password" id="login-password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="primary-btn full-width">Sign In</button>
+                        <p class="auth-switch">New here? <span onclick="app.switchAuth('register')">Create an account</span></p>
+                    </form>
+                </div>
+
+                <div class="auth-box" id="register-box" style="display: none;">
+                    <h2>Join Zen Journal</h2>
+                    <p class="auth-subtitle">Begin your lucid journey.</p>
+                    <form onsubmit="event.preventDefault(); app.register();">
+                        <div class="input-group">
+                            <span class="material-symbols-outlined">person</span>
+                            <input type="text" id="reg-name" placeholder="Name" required>
+                        </div>
+                        <div class="input-group">
+                            <span class="material-symbols-outlined">mail</span>
+                            <input type="email" id="reg-email" placeholder="Email" required>
+                        </div>
+                        <div class="input-group">
+                            <span class="material-symbols-outlined">lock</span>
+                            <input type="password" id="reg-password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="primary-btn full-width">Sign Up</button>
+                        <p class="auth-switch">Already have an account? <span onclick="app.switchAuth('login')">Sign in</span></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- view-home: The grid of 3 main options -->
+        <section id="view-home" class="view fade-in">
+            <div class="menu-container">
+                <button class="menu-card" onclick="app.navigate('recorder')">
+                    <span class="material-symbols-outlined top-icon">menu_book</span>
+                    <span class="card-title">Log Dream</span>
+                </button>
+                <button class="menu-card" onclick="app.navigate('zenspace')">
+                    <span class="material-symbols-outlined top-icon">all_inclusive</span>
+                    <span class="card-title">Zen Space</span>
+                </button>
+                <button class="menu-card" onclick="app.navigate('gallery')">
+                    <span class="material-symbols-outlined top-icon">play_circle</span>
+                    <span class="card-title">Replay Dreams</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- view-zenspace: The carousel to select sanctuary -->
+        <section id="view-zenspace" class="view">
+            <h2 class="view-title">Select Your Sanctuary</h2>
+            
+            <div class="carousel-container">
+                <button class="nav-btn prev" onclick="app.prevSpace()"><span class="material-symbols-outlined">chevron_left</span></button>
+                
+                <div class="carousel-card space-card active slide-up" style="background: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=1000') center/cover no-repeat;">
+                    <div class="card-content">
+                        <span class="eyebrow">ACTIVE SPACE</span>
+                        <h1 class="space-title">Celestial Garden</h1>
+                        <p class="space-subtitle">Lucid Dreaming • 4.5Hz Theta Waves</p>
+                    </div>
+                </div>
+
+                <div class="carousel-card space-card slide-up" style="background: url('flower_field.png') center/cover no-repeat;">
+                    <div class="card-content">
+                        <span class="eyebrow">ACTIVE SPACE</span>
+                        <h1 class="space-title">Lotus Valley</h1>
+                        <p class="space-subtitle">Deep Relaxation • 3.2Hz Delta Waves</p>
+                    </div>
+                </div>
+
+                <div class="carousel-card space-card slide-up" style="background: url('cloud_area.png') center/cover no-repeat;">
+                    <div class="card-content">
+                        <span class="eyebrow">ACTIVE SPACE</span>
+                        <h1 class="space-title">Aether Skies</h1>
+                        <p class="space-subtitle">Mindfulness • 6.0Hz Alpha Waves</p>
+                    </div>
+                </div>
+
+                <button class="nav-btn next" onclick="app.nextSpace()"><span class="material-symbols-outlined">chevron_right</span></button>
+            </div>
+            
+            <button class="start-zen-btn scale-on-hover">
+                <span class="material-symbols-outlined fill-icon">play_circle</span>
+                START ZEN
+            </button>
+            
+            <div class="bottom-indicators">
+                <span>VR MODE</span>
+                <div class="dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <span>SETTINGS</span>
+            </div>
+        </section>
+
+        <!-- view-recorder: The microphone recording UI -->
+        <section id="view-recorder" class="view">
+            <div class="recorder-center">
+                <div class="mic-container pulse-animation" id="mic-btn" onclick="app.toggleRecording()">
+                    <span class="material-symbols-outlined mic-icon">mic</span>
+                </div>
+                
+                <h2 class="recording-prompt" id="record-prompt">Whisper your dream...</h2>
+                
+                <div class="recording-status blink" id="record-status" style="opacity: 0;">
+                    <span class="red-dot"></span> LISTENING
+                </div>
+                
+                <div class="audio-waves" id="audio-waves">
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                    <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                </div>
+            </div>
+            
+            <div class="recorder-footer">
+                <div class="progress-bar-container">
+                    <span class="time" id="rec-time">00:00</span>
+                    <div class="track">
+                        <div class="fill" id="rec-fill"></div>
+                    </div>
+                    <span class="time limit">RECORDING LIMIT 10:00</span>
+                </div>
+                <div class="recorder-options">
+                    <span class="option">waves <span class="muted">ENHANCED CLARITY ACTIVE</span></span>
+                    <span class="option">temp_preferences_custom <span class="muted">MOOD ANALYSIS ON</span></span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- view-gallery: Simply list the saved items -->
+        <section id="view-gallery" class="view">
+             <h2 class="view-title">Dream Gallery</h2>
+             <div class="gallery-grid fade-in" id="dream-gallery-list">
+                 <!-- Populated by JS -->
+             </div>
+             
+             <div class="gallery-empty" id="gallery-empty">
+                 <span class="material-symbols-outlined">auto_awesome</span>
+                 <p>You haven't logged any dreams yet.</p>
+                 <button class="secondary-btn" onclick="app.navigate('recorder')">Log a Dream</button>
+             </div>
+        </section>
+
+        <!-- Generating Modal for mocking AI -->
+        <div id="generating-modal" class="modal">
+            <div class="modal-content">
+                <div class="spinner"></div>
+                <h3>Visualizing your dream...</h3>
+                <p>Generating AI imagery based on your voice</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
